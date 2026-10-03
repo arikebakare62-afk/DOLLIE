@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Ballet&family=Allura&family=Cherry+Bomb+One&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DOLLIE — Your 2000s Dream Wardrobe</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cherry+Bomb+One&family=Nunito:wght@400;600;800;900&display=swap');
+  *{box-sizing:border-box}
+  body{margin:0;background:#fff6fb;color:#241b27;font-family:Nunito,Arial,sans-serif}
+  a{text-decoration:none;color:inherit}
+  .announcement{background:#111;color:#fff;text-align:center;padding:9px;font-size:12px;font-weight:800;letter-spacing:1.5px}
+  nav{height:76px;background:#fff;border-bottom:2px solid #f2d8e7;display:flex;align-items:center;justify-content:space-between;padding:0 5%;position:sticky;top:0;z-index:10}
+  .logo{font-family:'Cherry Bomb One',cursive;font-size:38px;letter-spacing:1px;color:#ff4fa3;text-shadow:2px 2px 0 #d8f2ff}
+  .links{display:flex;gap:28px;font-weight:900;font-size:13px;letter-spacing:1px}
+  .icons{display:flex;gap:15px;font-size:19px}
+  .hero{min-height:620px;display:flex;align-items:center;justify-content:center;text-align:center;padding:70px 20px;background:radial-gradient(circle at 20% 30%,#ffd9ec 0 13%,transparent 14%),radial-gradient(circle at 80% 20%,#d8f5ff 0 12%,transparent 13%),linear-gradient(135deg,#fff,#ffe7f3 55%,#e4f8ff)}
+  .hero-inner{max-width:850px}
+  .sparkle{font-size:22px;letter-spacing:14px;color:#ff66ad}
+  h1{font-family:'Cherry Bomb One',cursive;font-size:clamp(72px,15vw,150px);line-height:.85;margin:22px 0;color:#ff4fa3;text-shadow:5px 5px 0 #bfefff,-2px -2px 0 #fff}
+  .hero p{font-size:18px;font-weight:800;letter-spacing:2px;text-transform:uppercase}
+  .button{display:inline-block;margin-top:20px;background:#111;color:white;border:3px solid #111;border-radius:999px;padding:15px 31px;font-weight:900;letter-spacing:1px;box-shadow:5px 5px 0 #ff72b6;transition:.15s}
+  .button:hover{transform:translate(3px,3px);box-shadow:2px 2px 0 #ff72b6}
+  .ticker{background:#ff5aaa;color:white;overflow:hidden;white-space:nowrap;font-weight:900;padding:11px;letter-spacing:2px}
+  .ticker span{margin-right:35px}
+  section{padding:70px 5%;max-width:1200px;margin:auto}
+  .section-title{font-family:'Cherry Bomb One',cursive;font-size:42px;color:#ff4fa3;text-align:center;margin:0 0 35px}
+  .products{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .card{background:#fff;border:2px solid #f0d5e3;border-radius:20px;overflow:hidden;box-shadow:0 7px 0 #f7d8e8}
+  .product-img{height:300px;display:flex;align-items:center;justify-content:center;font-size:70px;background:linear-gradient(135deg,#ffd6ea,#e2f8ff)}
+  .card:nth-child(2) .product-img{background:linear-gradient(135deg,#e3f7ff,#fff)}
+  .card:nth-child(3) .product-img{background:linear-gradient(135deg,#fff0f8,#d8efff)}
+  .info{padding:18px}.info h3{margin:0 0 5px;font-size:17px}.price{font-weight:900}.mini{font-size:12px;color:#8d7483;margin-top:7px}
+  .about{background:#111;color:white;border-radius:30px;padding:55px;text-align:center;max-width:1100px;margin:0 auto}
+  .about h2{font-family:'Cherry Bomb One',cursive;color:#ff7dbb;font-size:45px;margin:0 0 12px}
+  .about p{max-width:650px;margin:auto;line-height:1.7}
+  footer{margin-top:70px;background:#ffdced;padding:40px 5%;text-align:center}
+  footer .logo{font-size:30px}
+  .social{margin-top:10px;font-weight:800}
+  @media(max-width:750px){
+    .links{display:none}.products{grid-template-columns:1fr}.hero{min-height:560px}
+    nav{padding:0 18px}.about{padding:40px 22px}
+  }
+
+  .product-link{display:block;cursor:pointer;transition:.2s}
+  .product-link:hover{transform:translateY(-6px) rotate(-.5deg)}
+  .product-page{display:none;margin:50px auto 0;background:#fff;border:2px solid #f0d5e3;border-radius:28px;padding:30px;max-width:1100px;box-shadow:0 8px 0 #f7d8e8}
+  .product-page.active{display:block}
+  .back-button{background:none;border:0;font-weight:900;letter-spacing:1px;cursor:pointer;padding:8px 0;color:#241b27}
+  .product-layout{display:grid;grid-template-columns:1fr 1fr;gap:45px;align-items:center;padding:15px 0}
+  .large-product-img{height:520px;border-radius:22px;display:flex;align-items:center;justify-content:center;font-size:150px;background:linear-gradient(135deg,#ffd6ea,#e2f8ff)}
+  .product-label{font-size:11px;font-weight:900;letter-spacing:2px;color:#ff4fa3}
+  .product-details h2{font-family:'Cherry Bomb One',cursive;color:#ff4fa3;font-size:48px;line-height:1;margin:10px 0}
+  .big-price{font-size:24px;font-weight:900;margin-bottom:18px}
+  .product-details>p{line-height:1.7;color:#685666}
+  .choice-label{display:block;font-size:12px;font-weight:900;letter-spacing:1px;margin:25px 0 10px}
+  .sizes{display:flex;gap:8px}
+  .sizes button{width:48px;height:44px;border:2px solid #222;background:white;border-radius:10px;font-weight:900;cursor:pointer}
+  .sizes button.selected{background:#111;color:white}
+  .add-button{width:100%;margin-top:24px;background:#ff4fa3;color:white;border:0;border-radius:999px;padding:17px;font-weight:900;letter-spacing:1px;cursor:pointer;box-shadow:4px 4px 0 #bfefff}
+  .cart-message{min-height:22px;margin-top:12px;text-align:center;font-size:13px;font-weight:900;color:#ff4fa3}
+  .details-box{margin-top:25px;padding:18px;background:#fff6fb;border-radius:16px;font-size:13px;line-height:1.6}
+  .details-box p{margin-bottom:0;color:#685666}
+  @media(max-width:750px){
+    .product-layout{grid-template-columns:1fr;gap:25px}
+    .large-product-img{height:360px;font-size:110px}
+    .product-details h2{font-size:38px}
+    .product-page{padding:20px}
+  }
+
+
+  .script-logo{
+    font-family:'Allura',cursive !important;
+    font-weight:400 !important;
+    text-transform:none !important;
+    letter-spacing:0 !important;
+    color:#111 !important;
+    line-height:.8;
+  }
+  .hero-script{
+    font-size:clamp(100px,18vw,210px) !important;
+    transform:rotate(-2deg);
+    text-shadow:2px 3px 0 rgba(255,255,255,.65);
+  }
+  .logo.script-logo{
+    font-size:52px;
+    transform:rotate(-2deg);
+  }
+  @media(max-width:750px){
+    .logo.script-logo{font-size:42px}
+    .hero-script{font-size:100px !important}
+  }
+
+
+  .script-heading{
+    font-family:'Ballet','Allura',cursive !important;
+    font-weight:400 !important;
+    text-transform:none !important;
+    letter-spacing:0 !important;
+    color:#f45aa9 !important;
+  }
+  .hero .tagline.script-heading,
+  .hero p.script-heading{
+    font-size:clamp(38px,6vw,72px) !important;
+    line-height:1 !important;
+  }
+  .section-title.script-heading,
+  h2.script-heading{
+    font-size:clamp(48px,7vw,82px) !important;
+    line-height:.9 !important;
+  }
+
+
+  .dollie-search-wrap{max-width:760px;margin:18px auto 8px;padding:0 20px;position:relative;z-index:20}
+  .dollie-search{display:flex;align-items:center;gap:10px;background:#fff;border:2px solid #f4acd1;border-radius:999px;padding:7px 9px 7px 18px;box-shadow:3px 4px 0 #d9f5ff}
+  .search-icon{font-size:27px;line-height:1;transform:rotate(-15deg)}
+  .dollie-search input{flex:1;border:0;outline:0;background:transparent;font:700 15px 'Nunito',sans-serif;min-width:0;color:#222}
+  .dollie-search input::placeholder{color:#9a8191}
+  .dollie-search button{border:0;border-radius:999px;background:#ff4fa3;color:#fff;padding:12px 18px;font:900 11px 'Nunito',sans-serif;letter-spacing:1px;cursor:pointer}
+  .search-results{display:none;margin-top:8px;background:#fff;border:1px solid #f4d8e7;border-radius:18px;padding:8px;box-shadow:0 12px 30px rgba(0,0,0,.12);overflow:hidden}
+  .search-results.show{display:block}
+  .search-result{display:flex;align-items:center;gap:13px;padding:10px;border-radius:13px;text-decoration:none;color:#222;transition:.15s}
+  .search-result:hover{background:#fff2f8;transform:translateX(2px)}
+  .search-result-thumb{width:52px;height:52px;border-radius:12px;background:linear-gradient(135deg,#ffd6ea,#e2f8ff);display:flex;align-items:center;justify-content:center;font-size:27px;flex:none}
+  .search-result-info{flex:1;min-width:0}
+  .search-result-info strong{display:block;font-size:14px}
+  .search-result-info small{display:block;color:#9a8191;font-size:11px;margin-top:3px}
+  .search-result-price{font-weight:900;font-size:13px}
+  .search-heading{padding:7px 10px 5px;font-size:10px;font-weight:900;letter-spacing:1.5px;color:#ff4fa3}
+  .no-results{text-align:center;padding:16px;color:#8a7180;font-weight:700}
+  @media(max-width:600px){
+
+    .dollie-search{padding-left:13px}
+    .dollie-search button{padding:11px 13px}
+  }
+
+</style>
+</head>
+<body>
+<div class="announcement">♡ DOLLIE DROP 01 COMING SOON — SIGN UP FOR FIRST ACCESS ♡</div>
+<div class="dollie-search-wrap">
+  <form class="dollie-search" onsubmit="searchProducts(event)">
+    <span class="search-icon">⌕</span>
+    <input id="site-search" type="search" placeholder="Search Dollie..." aria-label="Search Dollie products">
+    <button type="submit">SEARCH</button>
+  </form>
+  <div id="search-results" class="search-results" aria-live="polite"></div>
+</div>
+
+<nav>
+  <div class="logo script-logo">Dollie</div>
+  <div class="links">
+    <a href="#new">NEW IN</a><a href="dollie_shop.html">SHOP</a><a href="#about">ABOUT</a><a href="#contact">CONTACT</a>
+  </div>
+  <div class="icons">♡ 🛍</div>
+</nav>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div class="sparkle">✦ ✧ ✦ ✧ ✦</div>
+    <h1>DOLLIE</h1>
+    <p>Your 2000s dream wardrobe.</p>
+    <a class="button" href="dollie_shop.html">SHOP DROP 01 →</a>
+  </div>
+</header>
+
+<div class="ticker">
+  <span>♡ Y2K FOREVER</span><span>✦ MADE TO STAND OUT</span><span>♡ DOLLIE GIRL</span><span>✦ 2000s ENERGY</span>
+</div>
+
+<section id="new">
+  <h2 class="section-title">NEW IN ♡</h2>
+  <div class="products" id="shop">
+    <a class="card product-link" href="#baby-tee" onclick="openProduct('baby-tee')">
+      <div class="product-img">👚</div>
+      <div class="info"><h3>Dollie Baby Tee</h3><div class="price">€24.99</div><div class="mini">Pink · Fitted · Y2K</div></div>
+    </a>
+    <a class="card product-link" href="#denim-jeans" onclick="openProduct('denim-jeans')">
+      <div class="product-img">👖</div>
+      <div class="info"><h3>Dollie Denim Jeans</h3><div class="price">€49.99</div><div class="mini">Blue denim · 2000s fit</div></div>
+    </a>
+    <a class="card product-link" href="#mini-bag" onclick="openProduct('mini-bag')">
+      <div class="product-img">👜</div>
+      <div class="info"><h3>Mini Dollie Bag</h3><div class="price">€24.99</div><div class="mini">Pink · Shoulder bag</div></div>
+    </a>
+  </div>
+
+  <div id="product-page" class="product-page" aria-hidden="true">
+    <button class="back-button" onclick="closeProduct()">← BACK TO SHOP</button>
+    <div class="product-layout">
+      <div class="large-product-img" id="product-emoji">👚</div>
+      <div class="product-details">
+        <div class="product-label">DOLLIE DROP 01</div>
+        <h2 id="product-title">Dollie Baby Tee</h2>
+        <div class="big-price" id="product-price">€24.99</div>
+        <p id="product-description">A cute 2000s-inspired essential made for everyday Dollie looks.</p>
+
+        <label class="choice-label">SIZE</label>
+        <div class="sizes">
+          <button onclick="selectSize(this)">XS</button>
+          <button onclick="selectSize(this)">S</button>
+          <button onclick="selectSize(this)">M</button>
+          <button onclick="selectSize(this)">L</button>
+        </div>
+
+        <button class="add-button" onclick="addToCart()">ADD TO BAG ♡</button>
+        <div id="cart-message" class="cart-message"></div>
+
+        <div class="details-box">
+          <b>PRODUCT DETAILS</b>
+          <p id="product-details">Y2K-inspired design · Dollie branding · Designed for a playful 2000s look.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="about">
+    <h2>WELCOME TO THE DOLLHOUSE ♡</h2>
+    <p>DOLLIE brings the playful energy of the 2000s back to your wardrobe — baby tees, denim, mini bags and everything in between. Cute, nostalgic and made to be seen.</p>
+    <a class="button" href="dollie_shop.html">EXPLORE DOLLIE</a>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="logo script-logo">Dollie</div>
+  <div class="social">Instagram · TikTok · Pinterest</div>
+  <p>© 2026 DOLLIE ♡ Your 2000s dream wardrobe.</p>
+</footer>
+
+<script>
+const products = {
+  "baby-tee": {
+    title: "Dollie Baby Tee",
+    price: "€24.99",
+    emoji: "👚",
+    description: "Our signature Dollie baby tee with a cute, nostalgic 2000s feel.",
+    details: "Pink Y2K-inspired tee · Small Dollie♡ front logo · Soft everyday style."
+  },
+  "denim-jeans": {
+    title: "Dollie Denim Jeans",
+    price: "€49.99",
+    emoji: "👖",
+    description: "Classic blue denim with a playful throwback 2000s-inspired silhouette.",
+    details: "Blue denim · 2000s-inspired fit · Dollie branding · Everyday wardrobe staple."
+  },
+  "mini-bag": {
+    title: "Mini Dollie Bag",
+    price: "€24.99",
+    emoji: "👜",
+    description: "A tiny shoulder bag designed to finish off your Dollie look.",
+    details: "Pink mini shoulder bag · Compact design · Y2K-inspired styling."
+  }
+};
+
+let currentProduct = null;
+let selectedSize = null;
+
+function openProduct(id){
+  const p = products[id];
+  if(!p) return;
+  currentProduct = id;
+  selectedSize = null;
+  document.querySelectorAll('.sizes button').forEach(b => b.classList.remove('selected'));
+  document.getElementById('product-title').textContent = p.title;
+  document.getElementById('product-price').textContent = p.price;
+  document.getElementById('product-emoji').textContent = p.emoji;
+  document.getElementById('product-description').textContent = p.description;
+  document.getElementById('product-details').textContent = p.details;
+  document.getElementById('cart-message').textContent = '';
+  document.getElementById('product-page').classList.add('active');
+  document.getElementById('product-page').setAttribute('aria-hidden','false');
+  document.getElementById('product-page').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function closeProduct(){
+  document.getElementById('product-page').classList.remove('active');
+  document.getElementById('product-page').setAttribute('aria-hidden','true');
+  document.getElementById('shop').scrollIntoView({behavior:'smooth',block:'start'});
+  history.replaceState(null,'',window.location.pathname + window.location.search);
+}
+
+function selectSize(button){
+  document.querySelectorAll('.sizes button').forEach(b => b.classList.remove('selected'));
+  button.classList.add('selected');
+  selectedSize = button.textContent;
+}
+
+function addToCart(){
+  const message = document.getElementById('cart-message');
+  if(currentProduct === 'mini-bag'){
+    message.textContent = "♡ Added to your Dollie bag!";
+    return;
+  }
+  if(!selectedSize){
+    message.textContent = "Please choose a size first ♡";
+    return;
+  }
+  message.textContent = "♡ Added to your Dollie bag!";
+}
+</script>
+
+
+<script>
+const searchableProducts = [
+  {id:'baby-tee', name:'Dollie Baby Tee', price:'€24.99', emoji:'👚', keywords:'baby tee pink top t-shirt y2k clothing'},
+  {id:'denim-jeans', name:'Dollie Denim Jeans', price:'€49.99', emoji:'👖', keywords:'jeans denim blue trousers 2000s clothing'},
+  {id:'mini-bag', name:'Mini Dollie Bag', price:'€24.99', emoji:'👜', keywords:'bag shoulder mini pink accessory'}
+];
+
+const searchInput = document.getElementById('site-search');
+const searchBox = document.getElementById('search-results');
+
+function renderSearchResults(query){
+  query = query.trim().toLowerCase();
+
+  if(!query){
+    searchBox.classList.remove('show');
+    searchBox.innerHTML = '';
+    return;
+  }
+
+  const words = query.split(/\s+/).filter(Boolean);
+
+  const matches = searchableProducts.filter(p => {
+    const text = (p.name + ' ' + p.keywords).toLowerCase();
+    return words.every(word => text.includes(word));
+  });
+
+  if(!matches.length){
+    searchBox.innerHTML = '<div class="no-results">No products found ♡</div>';
+  } else {
+    searchBox.innerHTML =
+      '<div class="search-heading">PRODUCTS</div>' +
+      matches.map(p => `
+        <a class="search-result" href="#${p.id}" onclick="openProduct('${p.id}')">
+          <span class="search-result-thumb">${p.emoji}</span>
+          <span class="search-result-info">
+            <strong>${p.name}</strong>
+            <small>DOLLIE DROP 01 · Y2K</small>
+          </span>
+          <span class="search-result-price">${p.price}</span>
+        </a>
+      `).join('');
+  }
+
+  searchBox.classList.add('show');
+}
+
+searchInput.addEventListener('input', function(){
+  renderSearchResults(this.value);
+});
+
+searchInput.addEventListener('focus', function(){
+  if(this.value.trim()) renderSearchResults(this.value);
+});
+
+function searchProducts(event){
+  event.preventDefault();
+  renderSearchResults(searchInput.value);
+  const first = searchBox.querySelector('.search-result');
+  if(first && searchInput.value.trim()){
+    // Keep the results visible so the shopper can choose an option.
+  }
+}
+
+document.addEventListener('click', function(event){
+  const wrap = document.querySelector('.dollie-search-wrap');
+  if(wrap && !wrap.contains(event.target)){
+    searchBox.classList.remove('show');
+  }
+});
+</script>
+
+</body>
+</html>
